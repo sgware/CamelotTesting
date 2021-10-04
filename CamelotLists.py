@@ -1,3 +1,5 @@
+import Location
+
 Items = ["Apple", "Bag", "BlueBook", "BlueCloth", "BlueKey", "BluePotion", "Bottle", "Bread", "ChickenLeg",
          "Coin", "Compass", "Cup", "EvilBook", "GoldBook", "GreenBook", "GreenKey", "GreenPotion", "Hammer",
          "Helmet", "InkandQuill", "JewelKey", "LitTorch", "Lock", "MagnifyingGlass", "OpenScroll", "PurpleBook",
@@ -5,12 +7,16 @@ Items = ["Apple", "Bag", "BlueBook", "BlueCloth", "BlueKey", "BluePotion", "Bott
          "Scroll", "Skull", "SpellBook", "Sword", "Torch"]
 
 Visual_Effects = ["Aura", "Blackflame", "Blood", "Brew", "Campfire", "Death", "Diamond", "Explosion",
-                 "Force", "Heart", "Heartbroken", "Magic", "Poison", "Poof", "Resurrection", "Skulls",
-                 "Spiralflame", "Wildfire"]
+                  "Force", "Heart", "Heartbroken", "Magic", "Poison", "Poof", "Resurrection", "Skulls",
+                  "Spiralflame", "Wildfire"]
+
+Hair_Color = ["gray", "black", "brown", "red", "blonde"]
 
 Hairstyles_All_Body_Types = ["Long", "Spiky", "Short", "Short_Beard", "Short_Full"]
 
 BodyTypes = ["A", "B", "C", "D", "E", "F", "G", "H"]
+
+Expressions = ["neutral", "happy", "sad", "angry", "disgusted", "scared", "surprised", "asleep"]
 
 Hairsyles_ACEG = ["Ponytail", "Straight"]
 
@@ -19,7 +25,7 @@ Hairsyles_BDFH = ["Mage", "Mage_Beard", "Mage_Full", "Musketeer", "Musketeer_Bea
 Outfits_All_Body_Types = ["Bandit", "Beggar", "HeavyArmour", "LightArmour", "Merchant", "Naked",
                           "Noble", "Peasant", "Priest"]
 
-Eye_Color = ["white", "black", "blue", "red", "brown", "green"]
+Eyecolor = ["white", "black", "blue", "red", "brown", "green"]
 
 Outfits_ACEG = ["Queen", "Witch"]
 
@@ -41,3 +47,5 @@ SoundEffects_Music = ["Danger1", "Danger2", "Danger3", "Dramatic", "Explorer", "
                       "Ominous", "Peaceful", "Serenade", "Serenity", "Tavern"]
 
 SoundEffects_UI = ["Button", "Error", "Flute1", "Flute2", "Menu"]
+
+ForestPath = Location.Location({1: "EastEnd", 2: "Well", 3: "Plant", 4: "DirtPile", 6: "WestEnd"}, {}, {5: "PathBlock"})
