@@ -22,22 +22,21 @@ class TestingGui:
         self.waitTime = .5
         self.isInputEnabled = False
 
+
+        self.partialTestingButton = Button(master, text = "Partial Testing", command=lambda: self.createPartialTestingWindow(root))
+
         self.myButton = Button(master, text="Run Command", command=self.get_input)
         self.clearButton = Button(master, text="Clear", command=self.clear_output)
         self.commandBox = Text(master, height=5, width=40)
         self.outputBox = Text(master, height=12, width=40)
-        self.clothingBoxButton = Button(master, text="Clothing", command=self.clothing)
-        self.eyeColorButton = Button(master, text="Eye Color", command=self.eye_color)
-        self.hairStylesButton = Button(master, text="Hair Styles", command=self.hair_style)
+
         self.defaultButton = Button(master, text="Default", command=lambda :self.default(self.focusCharacter))
-        self.hair_colorButton = Button(master, text="Hair Color", command=self.hair_color)
-        self.skin_colorButton = Button(master, text="Skin Color", command=self.skin_color)
+
         self.items_button = Button(master, text="Items", command=self.items)
         self.visual_effects_button = Button(master, text="Visual Effects", command=self.visual_effects)
         self.run_aroundButton = Button(master, text="Run Around", command=self.run_around)
         self.all_clothingButton = Button(master, text="All Clothing", command=self.all_clothing)
         self.inputButton = Button(master, text="Allow input", command=self.inputEnable)
-        self.openManualWindowButton = Button(master, text="Open Manual", command=self.createManualWindow)
         self.forest_button = Button(master, text="Forest Path Test", command=self.test_forestpath)
         self.forest_manual_button = Button(master, text="Manual Forest Path Test", command=self.test_forestpath_manual)
 
@@ -45,21 +44,11 @@ class TestingGui:
         self.myButton.pack()
         self.outputBox.pack()
         self.clearButton.pack()
-        self.clothingBoxButton.pack()
-        self.eyeColorButton.pack()
-        self.hairStylesButton.pack()
-        self.hair_colorButton.pack()
-        self.skin_colorButton.pack()
-        self.items_button.pack()
-        self.visual_effects_button.pack()
-        self.run_aroundButton.pack()
-        self.all_clothingButton.pack()
         self.inputButton.pack()
         self.defaultButton.pack()
-        self.openManualWindowButton.pack()
-        self.forest_button.pack()
-        self.forest_manual_button.pack()
-        self.defaultButton.pack()
+        #self.forest_button.pack()
+        #self.forest_manual_button.pack()
+        self.partialTestingButton.pack()
 
         self.initialize()
 
@@ -76,8 +65,8 @@ class TestingGui:
 
         return new_command
 
-    def createManualWindow(self):
-        manualwindow = Toplevel(root)
+    def createManualWindow(self, master):
+        manualwindow = Toplevel(master)
         manualwindow.title("Manual Experience Manager")
         manualwindow.geometry("300x300")
 
@@ -95,6 +84,52 @@ class TestingGui:
         characterWindow.pack()
 
         manualwindow.mainloop()
+
+    def createPartialTestingWindow(self, master):
+        partialTestingWindow  = Toplevel(master)
+        partialTestingWindow.title("Partial Testing Experience Manager")
+        partialTestingWindow.geometry("400x800")
+
+        Button(partialTestingWindow, text = "Selection Testing", command= lambda :self.createSelectingTestingWindow(partialTestingWindow)).pack()
+        Button(partialTestingWindow, text="Auto Testing",
+               command=lambda: self.createautoTestWindow(partialTestingWindow)).pack()
+
+
+        partialTestingWindow.mainloop()
+
+    def createautoCharacterWindow(self,master):
+        autoCharacterWindow = Toplevel(master)
+        autoCharacterWindow.title("Partial Testing Experience Manager")
+        autoCharacterWindow.geometry("400x800")
+
+        Button(autoCharacterWindow, text="Clothing", command=self.clothing).pack()
+        Button(autoCharacterWindow, text="Eye Color", command=self.eye_color).pack()
+        Button(autoCharacterWindow, text="Hair Styles", command=self.hair_style).pack()
+        Button(autoCharacterWindow, text="Hair Color", command=self.hair_color).pack()
+        Button(autoCharacterWindow, text="Skin Color", command=self.skin_color).pack()
+
+        autoCharacterWindow.mainloop()
+        
+    def createautoTestWindow(self,master):
+        autoTestWindow = Toplevel(master)
+        autoTestWindow.title("Full Partial Experience Manager")
+        autoTestWindow.geometry("400x800")
+
+        Button(autoTestWindow, text = "Auto Character", command=lambda :self.createautoCharacterWindow(autoTestWindow)).pack()
+
+        autoTestWindow.mainloop()
+
+    def createSelectingTestingWindow(self,master):
+        selectionTestingWindow = Toplevel(master)
+        selectionTestingWindow.title("Full Partial Experience Manager")
+        selectionTestingWindow.geometry("400x800")
+
+        manualTestButton = Button(selectionTestingWindow, text = "Manual Test", command=lambda :self.createManualWindow(selectionTestingWindow))
+        autoTestButton = Button(selectionTestingWindow, text = "Auto Test", command = lambda :self.createautoTestWindow(selectionTestingWindow))
+        manualTestButton.pack()
+        autoTestButton.pack()
+
+        selectionTestingWindow.mainloop()
 
     def generateHairStyleWindow(self, master):
         hairStyleWindow = Toplevel(master)
@@ -150,8 +185,6 @@ class TestingGui:
             self.yeet(name)
         else:
             self.default(name)
-            command_list = ['SetPosition', name, self.locationName]
-            self.action(self.create_command(command_list))
             self.trashList.remove(name)
             command_list = ['SetCameraFocus', name]
             self.action(self.create_command(command_list))
@@ -266,6 +299,8 @@ class TestingGui:
             self.action('Wait(.5)')
 
     def default(self, name):
+        command_list = ['SetCameraMode', focus]
+        self.action(self.create_command(command_list))
         command_list = ['SetPosition', name, self.locationName]
         self.action(self.create_command(command_list))
         command_list = ['SetClothing', name]
@@ -367,7 +402,7 @@ class TestingGui:
         self.action('SetPosition(BobB, BobsHouse.Door)')
         self.action('SetCameraFocus(BobB)')
         self.action('SetCameraMode(focus)')
-        self.currentFocusMode = "track"
+        self.currentFocusMode = "focus"
         self.action('ShowMenu()')
         self.action('HideMenu()')
 
