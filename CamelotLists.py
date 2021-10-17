@@ -31,20 +31,23 @@ Outfits_ACEG = ["Queen", "Witch"]
 
 Outfits_BDFH = ["King", "Warlock"]
 
-SoundEffects_Actions = ["Clap", "Draw", "Eat", "Hammer", "Lock", "Pocket", "Sheathe", "Unlock",
-                        "Unpocket", "Write"]
-SoundEffects_Ambient = ["Forest_Day", "Forest_Night", "Port", "River", "Spooky", "Town_Day", "Town_Night"]
+SoundEffects_Actions = [["Clap", "Draw", "Eat", "Hammer", "Lock", "Pocket", "Sheathe", "Unlock",
+                        "Unpocket", "Write"], ["1", "4", "1", "4", "1", "1", "1", "1", "1","1","1"]]
 
-SoundEffects_Characters = ["Attack1", "Attack2", "Cry1", "Cry2", "Death1", "Death2", "EvilLaugh1", "EvilLaugh2",
-                           "Hit1", "Hit2", "Laugh1", "Laugh2", "Scream"]
+SoundEffects_Ambient = [["Forest_Day", "Forest_Night", "Port", "River", "Spooky", "Town_Day", "Town_Night"], ["19", "4", "9", "16", "16", "120", "60"]]
 
-SoundEffects_Effects = ["Brew", "DarkMagic", "Fireball", "MixPotion", "Potion", "Spell", "Spell2", "Spell3"]
+SoundEffects_Characters = [["Attack1", "Attack2", "Cry1", "Cry2", "Death1", "Death2", "EvilLaugh1", "EvilLaugh2",
+                           "Hit1", "Hit2", "Laugh1", "Laugh2", "Scream",["1", "1", "6", "3", "2", "2", "1", "2", "1", "1", "2", "3", "3"]]]
 
-SoundEffects_Furniture = ["Book", "CloseChest", "CloseDoor1", "CloseDoor2", "Fireplace", "Horse", "OpenChest",
-                          "OpenDoor1", "OpenDoor2", "SecretDoor"]
+SoundEffects_Effects = [["Brew", "DarkMagic", "Fireball", "MixPotion", "Potion", "Spell", "Spell2", "Spell3", ["24", "2", "1", "3", "1", "1", "2", "1"]]]
 
-SoundEffects_Music = ["Danger1", "Danger2", "Danger3", "Dramatic", "Explorer", "Grief", "Kingdom", "LivelyMusic",
-                      "Ominous", "Peaceful", "Serenade", "Serenity", "Tavern"]
+SoundEffects_Furniture = [["Book", "CloseChest", "CloseDoor1", "CloseDoor2", "Fireplace", "Horse", "OpenChest",
+                          "OpenDoor1", "OpenDoor2", "SecretDoor"], ["1", "1", "1", "1", "20", "1", "1", "1", "1", "1"]]
+
+SoundEffects_Music = [["Danger1", "Danger2", "Danger3", "Dramatic", "Explorer", "Grief", "Kingdom", "LivelyMusic",
+                      "Ominous", "Peaceful", "Serenade", "Serenity", "Tavern", ["72", "130", "81", "135", "47", "151", "97", "86", "128", "21", "92", "69", "151"]]]
+
+SoundEffects_UI = [["Button", "Error", "Flute1", "Flute2", "Menu"],["1", "2", "2", "3", "1"]]
 
 SoundEffects_UI = ["Button", "Error", "Flute1", "Flute2", "Menu"]
 
