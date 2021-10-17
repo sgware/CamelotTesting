@@ -38,7 +38,8 @@ class TestingGui:
         self.all_clothingButton = Button(master, text="All Clothing", command=self.all_clothing)
         self.inputButton = Button(master, text="Allow input", command=self.inputEnable)
         self.forest_button = Button(master, text="Forest Path Test", command=self.test_forestpath)
-        self.forest_manual_button = Button(master, text="Manual Forest Path Test", command=self.test_forestpath_manual)
+        self.forest_manual_button = Button(master, text="Manual Forest Path Test", command=self.test_forestpath_manual
+        self.soundButton = Button(master, text ="Play sound", command=self.play_sound)                                   
 
         self.commandBox.pack()
         self.myButton.pack()
@@ -48,6 +49,7 @@ class TestingGui:
         self.defaultButton.pack()
         #self.forest_button.pack()
         #self.forest_manual_button.pack()
+        self.soundButton.pack()                                   
         self.partialTestingButton.pack()
 
         self.initialize()
@@ -64,6 +66,44 @@ class TestingGui:
             new_command = command_list[0] + "()"
 
         return new_command
+    
+        def play_sound(self):
+        for i in range(len(CamelotLists.SoundEffects_Actions[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Actions[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Actions[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Ambient[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Ambient[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Ambient[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Characters[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Characters[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Characters[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Effects[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Effects[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Effects[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Furniture[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Furniture[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Furniture[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Music[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Music[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Music[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_UI[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
+            self.action(self.create_command(command_list))
+
 
     def createManualWindow(self, master):
         manualwindow = Toplevel(master)
