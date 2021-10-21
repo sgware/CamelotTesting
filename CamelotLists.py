@@ -10,6 +10,18 @@ Visual_Effects = ["Aura", "Blackflame", "Blood", "Brew", "Campfire", "Death", "D
                   "Force", "Heart", "Heartbroken", "Magic", "Poison", "Poof", "Resurrection", "Skulls",
                   "Spiralflame", "Wildfire"]
 
+Icons = ["arrest", "draw", "drink", "exit", "forge", "kneel", "listen", "lockpick", "research", "swords", "talk",
+         "unlock", "usekey", "armour", "beard", "boot", "crown", "dress", "gloves", "helm", "paintbrush", "palette",
+         "sewing", "brokenheart", "charm", "firespell", "hurt", "skull", "snowflake", "star", "bed", "cauldron", "chair",
+         "chest", "door", "fireplace", "lockedchest", "lockeddoor", "plant", "target", "throne", "well", "woodendoor",
+         "apple", "book", "bookshelf", "bread", "chickenleg", "coins", "darkmagic", "evilbook", "flask", "flower",
+         "healingpotion", "ink", "key", "lovepotion", "magnifyingglass", "openscroll", "padlock", "poison", "potion",
+         "present", "ring", "scroll", "sword", "torch", "woodpile", "cancel", "checkmark", "dice_five", "dice_four",
+         "dice_one", "dice_six", "dice_three", "dice_two", "fist", "hand", "hourglass", "meal", "music", "return",
+         "sleep", "snake", "sunrise", "time", "tree", "anvil", "bridge", "campfire", "castle", "city", "cottage",
+         "dungeon", "forest", "mug", "ship", "shopsign", "stonepath"]
+
+
 Hair_Color = ["gray", "black", "brown", "red", "blonde"]
 
 Hairstyles_All_Body_Types = ["Long", "Spiky", "Short", "Short_Beard", "Short_Full"]
@@ -49,6 +61,19 @@ SoundEffects_Music = [["Danger1", "Danger2", "Danger3", "Dramatic", "Explorer", 
 
 SoundEffects_UI = [["Button", "Error", "Flute1", "Flute2", "Menu"],["1", "2", "2", "3", "1"]]
 
-SoundEffects_UI = ["Button", "Error", "Flute1", "Flute2", "Menu"]
+ForestPath = Location.Location("ForestPath", ["EastEnd", "Well", "Plant", "DirtPile", "PathBlock", "WestEnd"],
+                               [None, None, None, None, None, None],
+                               [None, None, None, None, "PathBlock", None],
+                               ["EastEnd", "WestEnd"])
 
-ForestPath = Location.Location({1: "EastEnd", 2: "Well", 3: "Plant", 4: "DirtPile", 6: "WestEnd"}, {}, {5: "PathBlock"})
+Farm = Location.Location("Farm", ["Exit", "Haypiles", None, "Anvil", "Door", "Well"],
+                         [None, None, None, ["Surface"], ["Can Open and Close"], None],
+                         [None, "Haypiles", None, None, None, None],
+                         ["Exit", "Door"])
+
+SpookyPath = Location.Location("SpookyPath", ["WestEnd", "DirtPile", "Plant", "Well", "PathBlock", "EastEnd"],
+                               [None, None, None, None, None, None],
+                               [None, None, None, None, "PathBlock", None],
+                               ["WestEnd", "EastEnd"])
+
+

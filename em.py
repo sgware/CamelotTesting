@@ -1,6 +1,7 @@
 import CamelotLists
 from tkinter import *
 from tkinter import ttk
+import Location
 
 # sets the root for the testing window
 root = Tk()
@@ -22,261 +23,86 @@ class TestingGui:
         self.waitTime = .5
         self.isInputEnabled = False
 
-
-        self.partialTestingButton = Button(master, text = "Partial Testing", command=lambda: self.createPartialTestingWindow(root))
+        self.partialTestingButton = Button(master, text="Partial Testing",
+                                           command=lambda: self.createPartialTestingWindow(root))
 
         self.myButton = Button(master, text="Run Command", command=self.get_input)
         self.clearButton = Button(master, text="Clear", command=self.clear_output)
         self.commandBox = Text(master, height=5, width=40)
         self.outputBox = Text(master, height=12, width=40)
 
-        self.defaultButton = Button(master, text="Default", command=lambda :self.default(self.focusCharacter))
-
-        self.items_button = Button(master, text="Items", command=self.items)
-        self.visual_effects_button = Button(master, text="Visual Effects", command=self.visual_effects)
-        self.run_aroundButton = Button(master, text="Run Around", command=self.run_around)
-        self.all_clothingButton = Button(master, text="All Clothing", command=self.all_clothing)
-        self.inputButton = Button(master, text="Allow input", command=self.inputEnable)
-        self.forest_button = Button(master, text="Forest Path Test", command=self.test_forestpath)
-        self.forest_manual_button = Button(master, text="Manual Forest Path Test", command=self.test_forestpath_manual
-        self.soundButton = Button(master, text ="Play sound", command=self.play_sound)                                   
+        # self.items_button = Button(master, text="Items", command=self.items)
+        # self.visual_effects_button = Button(master, text="Visual Effects", command=self.visual_effects)
+        self.run_aroundButton = Button(master, text="Run Around", command=self.test)
+        # self.all_clothingButton = Button(master, text="All Clothing", command=self.all_clothing)
+        #self.inputButton = Button(master, text="Allow input", command=self.inputEnable)
+        # self.defaultButton = Button(master, text="Default", command=self.test)
+        self.soundButton = Button(master, text="Play sound", command=self.play_sound)
+        self.forest_button = Button(master, text="Forest Path Test",
+                                    command=lambda: self.test_Place(CamelotLists.ForestPath))
+        self.farm_button = Button(master, text="Farm Test",
+                                  command=lambda: self.test_Place(CamelotLists.Farm))
+        self.spooky_path_button = Button(master, text="Spooky Path Test",
+                                         command=lambda: self.test_Place(CamelotLists.SpookyPath))
+        self.iconsWindow = Button(master, text="Icons", command=self.test_icons)
 
         self.commandBox.pack()
         self.myButton.pack()
         self.outputBox.pack()
         self.clearButton.pack()
-        self.inputButton.pack()
-        self.defaultButton.pack()
+        self.run_aroundButton.pack()
+        #self.inputButton.pack()
+        #self.defaultButton.pack()
         #self.forest_button.pack()
         #self.forest_manual_button.pack()
-        self.soundButton.pack()                                   
-        self.partialTestingButton.pack()
+        #self.partialTestingButton.pack()
+        self.soundButton.pack()
+        self.forest_button.pack()
+        self.farm_button.pack()
+        self.spooky_path_button.pack()
+        self.iconsWindow.pack()
+
 
         self.initialize()
-
-    @staticmethod
-    def create_command(command_list):
-        if len(command_list) > 1:
-            new_command = command_list[0] + "("
-            for i in command_list[1:]:
-                new_command = new_command + i + ","
-            new_command = new_command[:-1]
-            new_command = new_command + ")"
-        else:
-            new_command = command_list[0] + "()"
-
-        return new_command
-    
-        def play_sound(self):
-        for i in range(len(CamelotLists.SoundEffects_Actions[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Actions[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_Actions[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Ambient[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Ambient[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_Ambient[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Characters[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Characters[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_Characters[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Effects[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Effects[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_Effects[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Furniture[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Furniture[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_Furniture[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Music[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_Music[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
-            self.action(self.create_command(command_list))
-        for i in range(len(CamelotLists.SoundEffects_Music[0])):
-            command_list = ['PlaySound', CamelotLists.SoundEffects_UI[0][i], self.focusCharacter]
-            self.action(self.create_command(command_list))
-            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
-            self.action(self.create_command(command_list))
-
 
     def createManualWindow(self, master):
         manualwindow = Toplevel(master)
         manualwindow.title("Manual Experience Manager")
         manualwindow.geometry("300x300")
 
-        clothingWindow = Button(manualwindow, text="Clothing",
-                                command=lambda: self.generateClothingWindow(manualwindow))
-        hairWindow = Button(manualwindow, text="HairStyle", command=lambda: self.generateHairStyleWindow(manualwindow))
-
-        expressionWindow = Button(manualwindow, text = "Expressions", command =lambda :self.generateExpressionWindow(manualwindow))
-
-        characterWindow = Button(manualwindow, text="Character Creator", command = lambda :self.generateCharacterWindow(manualwindow))
-
-        clothingWindow.pack()
-        hairWindow.pack()
-        expressionWindow.pack()
-        characterWindow.pack()
-
         manualwindow.mainloop()
 
-    def createPartialTestingWindow(self, master):
-        partialTestingWindow  = Toplevel(master)
-        partialTestingWindow.title("Partial Testing Experience Manager")
-        partialTestingWindow.geometry("400x800")
-
-        Button(partialTestingWindow, text = "Selection Testing", command= lambda :self.createSelectingTestingWindow(partialTestingWindow)).pack()
-        Button(partialTestingWindow, text="Auto Testing",
-               command=lambda: self.createautoTestWindow(partialTestingWindow)).pack()
-
-
-        partialTestingWindow.mainloop()
-
-    def createautoCharacterWindow(self,master):
-        autoCharacterWindow = Toplevel(master)
-        autoCharacterWindow.title("Partial Testing Experience Manager")
-        autoCharacterWindow.geometry("400x800")
-
-        Button(autoCharacterWindow, text="Clothing", command=self.clothing).pack()
-        Button(autoCharacterWindow, text="Eye Color", command=self.eye_color).pack()
-        Button(autoCharacterWindow, text="Hair Styles", command=self.hair_style).pack()
-        Button(autoCharacterWindow, text="Hair Color", command=self.hair_color).pack()
-        Button(autoCharacterWindow, text="Skin Color", command=self.skin_color).pack()
-
-        autoCharacterWindow.mainloop()
-        
-    def createautoTestWindow(self,master):
-        autoTestWindow = Toplevel(master)
-        autoTestWindow.title("Full Partial Experience Manager")
-        autoTestWindow.geometry("400x800")
-
-        Button(autoTestWindow, text = "Auto Character", command=lambda :self.createautoCharacterWindow(autoTestWindow)).pack()
-
-        autoTestWindow.mainloop()
-
-    def createSelectingTestingWindow(self,master):
-        selectionTestingWindow = Toplevel(master)
-        selectionTestingWindow.title("Full Partial Experience Manager")
-        selectionTestingWindow.geometry("400x800")
-
-        manualTestButton = Button(selectionTestingWindow, text = "Manual Test", command=lambda :self.createManualWindow(selectionTestingWindow))
-        autoTestButton = Button(selectionTestingWindow, text = "Auto Test", command = lambda :self.createautoTestWindow(selectionTestingWindow))
-        manualTestButton.pack()
-        autoTestButton.pack()
-
-        selectionTestingWindow.mainloop()
-
-    def generateHairStyleWindow(self, master):
-        hairStyleWindow = Toplevel(master)
-        hairStyleWindow.title("Manual HairStyle Experience Manager")
-        hairStyleWindow.geometry("400x800")
-
-        Label(hairStyleWindow, text="Hair Style:").pack()
-        for i in CamelotLists.Hairstyles_All_Body_Types:
-            ttk.Button(hairStyleWindow, text=i, command=lambda i=i: self.manualhairstyle(i)).pack()
-        if self.focusCharacter[-1] in ['A', 'C', 'E', 'G']:
-            for j in CamelotLists.Hairsyles_ACEG:
-                ttk.Button(hairStyleWindow, text=j, command=lambda j=j: self.manualhairstyle(j)).pack()
-        if self.focusCharacter[-1] in ['B', 'D', 'F', 'H']:
-            for k in CamelotLists.Hairsyles_BDFH:
-                ttk.Button(hairStyleWindow, text=k, command=lambda k=k: self.manualhairstyle(k)).pack()
-
-        Label(hairStyleWindow, text="Hair Color:").pack()
-        for i in CamelotLists.Hair_Color:
-            ttk.Button(hairStyleWindow, text=i, command=lambda i=i: self.manualhaircolor(i)).pack()
-
-        hairStyleWindow.mainloop()
-
-    def generateCharacterWindow(self,master):
-        characterWindow = Toplevel(master)
-        characterWindow.title("Manual Character Experience Manager")
-        characterWindow.geometry("400x500")
-
-        for i in CamelotLists.BodyTypes:
-            ttk.Button(characterWindow, text=i, command=lambda i=i:self.createCharacter("Bob"+i,i)).pack()
-
-        characterWindow.mainloop()
-
-    def yeet(self,name):
-        for i in self.characterList:
-            if i not in self.trashList and name != i:
-                self.trashList.append(i)
-                command_list = ['SetPosition', i, self.trash]
+    def test_Place(self, place: Location.Location):
+        self.action("SetCameraMode(track)")
+        self.action(self.create_command(["CreatePlace", place.title, place.title]))
+        command_list = ['SetPosition', self.focusCharacter, place.title]
+        self.action(self.create_command(command_list))
+        command_list = ['SetClothing', self.focusCharacter, "Bandit"]
+        self.action(self.create_command(command_list))
+        for location in place.locs:
+            print("place: " + str(place.locs[0]))
+            if location[0] is not None:
+                command_list = ['WalkTo', self.focusCharacter, place.title + "." + location[0]]
                 self.action(self.create_command(command_list))
-
-
-
-    def createCharacter(self, name, body):
-        #If character already exists
-        if name not in self.characterList:
-            command_list = ['CreateCharacter', name, body]
+                self.action('Wait(2)')
+            if location[1] is not None:
+                for attr in location[1]:
+                    if attr == "Surface":
+                        command_list = ['CreateItem', CamelotLists.Items[1], CamelotLists.Items[1]]
+                        self.action(self.create_command(command_list))
+                        command_list = ['Put', self.focusCharacter, CamelotLists.Items[1],
+                                        place.title + "." + location[0]]
+                        self.action(self.create_command(command_list))
+                    if attr == "Can Open and Close":
+                        command_list = ['OpenFurniture', self.focusCharacter, place.title + "." + location[0]]
+                        self.action(self.create_command(command_list))
+                        command_list = ['CloseFurniture', self.focusCharacter, place.title + "." + location[0]]
+                        self.action(self.create_command(command_list))
+        for portal in place.exits:
+            command_list = ['WalkTo', self.focusCharacter, place.title + "." + portal]
             self.action(self.create_command(command_list))
-            self.characterList.append(name)
-            command_list = ['SetPosition', name, self.locationName]
-            self.action(self.create_command(command_list))
-            command_list = ['SetCameraFocus', name]
-            self.action(self.create_command(command_list))
-            self.focusCharacter = name
-            self.yeet(name)
-        else:
-            self.default(name)
-            self.trashList.remove(name)
-            command_list = ['SetCameraFocus', name]
-            self.action(self.create_command(command_list))
-            self.focusCharacter = name
-            self.yeet(name)
-
-
-
-
-    def generateExpressionWindow(self,master):
-        expressionWindow = Toplevel(master)
-        expressionWindow.title("Manual Expression Experience Manager")
-        expressionWindow.geometry("400x500")
-
-        for i in CamelotLists.Expressions:
-            ttk.Button(expressionWindow, text=i, command=lambda i=i: self.manualexpression(i)).pack()
-
-        expressionWindow.mainloop()
-
-
-    def generateClothingWindow(self, master):
-        clothingWindow = Toplevel(master)
-        clothingWindow.title("Manual Clothing Experience Manager")
-        clothingWindow.geometry("400x400")
-
-        for i in CamelotLists.Outfits_All_Body_Types:
-            ttk.Button(clothingWindow, text=i, command=lambda i=i: self.manualclothing(i)).pack()
-        if self.focusCharacter[-1] in ['A', 'C', 'E', 'G']:
-            for j in CamelotLists.Outfits_ACEG:
-                ttk.Button(clothingWindow, text=j, command=lambda j=j: self.manualclothing(j)).pack()
-        if self.focusCharacter[-1] in ['B', 'D', 'F', 'H']:
-            for k in CamelotLists.Outfits_BDFH:
-                ttk.Button(clothingWindow, text=k, command=lambda k=k: self.manualclothing(k)).pack()
-
-        clothingWindow.mainloop()
-
-
-    def manualclothing(self, clothingname):
-        command_list = ['SetClothing', self.focusCharacter, clothingname]
-        self.action(self.create_command(command_list))
-
-    def manualhairstyle(self, hairstylename):
-        command_list = ['SetHairStyle', self.focusCharacter, hairstylename]
-        self.action(self.create_command(command_list))
-
-    def manualhaircolor(self, haircolor):
-        command_list = ['SetHairColor', self.focusCharacter, haircolor]
-        self.action(self.create_command(command_list))
-
-    def manualexpression(self,expression):
-        command_list = ['SetExpression', self.focusCharacter, expression]
-        self.action(self.create_command(command_list))
+            self.action(self.create_command(["Exit", self.focusCharacter, place.title + "." + portal]))
+            self.action(self.create_command(["Enter", self.focusCharacter, place.title + "." + portal]))
 
     def all_clothing(self):
         oldcharacter = self.focusCharacter
@@ -324,7 +150,7 @@ class TestingGui:
         for i in CamelotLists.Outfits_All_Body_Types:
             command_list = ['SetClothing', self.focusCharacter, i]
             self.action(self.create_command(command_list))
-            self.action('Wait(.5)')
+            self.test2()
 
     def hair_style(self):
         for i in CamelotLists.Hairstyles_All_Body_Types:
@@ -338,20 +164,20 @@ class TestingGui:
             self.action(self.create_command(command_list))
             self.action('Wait(.5)')
 
-    def default(self, name):
-        command_list = ['SetCameraMode', focus]
+    def default(self):
+        # command_list = ['SetCameraMode', focus]
+        # self.action(self.create_command(command_list))
+        command_list = ['SetPosition', self.focusCharacter, self.locationName]
         self.action(self.create_command(command_list))
-        command_list = ['SetPosition', name, self.locationName]
+        command_list = ['SetClothing', self.focusCharacter]
         self.action(self.create_command(command_list))
-        command_list = ['SetClothing', name]
+        command_list = ['SetHairStyle', self.focusCharacter]
         self.action(self.create_command(command_list))
-        command_list = ['SetHairStyle', name]
+        command_list = ['SetEyeColor', self.focusCharacter]
         self.action(self.create_command(command_list))
-        command_list = ['SetEyeColor', name]
+        command_list = ['SetHairColor', self.focusCharacter]
         self.action(self.create_command(command_list))
-        command_list = ['SetHairColor', name]
-        self.action(self.create_command(command_list))
-        command_list = ['SetSkinColor', name, str(0)]
+        command_list = ['SetSkinColor', self.focusCharacter, str(0)]
         self.action(self.create_command(command_list))
 
     def hair_color(self):
@@ -434,17 +260,115 @@ class TestingGui:
         command_list = ['SetHairColor', self.focusCharacter]
         self.action(self.create_command(command_list))
         self.action("EnableInput()")
-
     def initialize(self):
+        """
+        self.action('CreatePlace(BobsHouse, Farm)')
+        self.action('CreateCharacter(BobB, B)')
+        # self.action('CreateCharacter(A)')
+        # self.action('CreateCharacter(B)')
+        # self.action('CreateCharacter(C)')
+        # self.action('CreateCharacter(D)')
+        # self.action('SetPosition(A, BobsHouse)')
+        # self.action('SetPosition(B, BobsHouse)')
+        # self.action('SetPosition(C, BobsHouse)')
+        # self.action('SetPosition(D, BobsHouse)')
+        self.action('SetPosition(BobB, BobsHouse)')
+        self.action('SetCameraFocus(BobB)')
+        self.action('SetCameraMode(focus)')
+        self.action('SetCameraBlend(1.25)')
+        self.currentFocusMode = "focus"
+        self.focusCharacter = "BobB"
+        self.action('ShowMenu()')
+        self.action('HideMenu()')
+        """
         self.action('CreatePlace(BobsHouse, Cottage)')
-        self.action('CreatePlace(Trashcan, Cottage)')
         self.action('CreateCharacter(BobB, B)')
         self.action('SetPosition(BobB, BobsHouse.Door)')
         self.action('SetCameraFocus(BobB)')
         self.action('SetCameraMode(focus)')
-        self.currentFocusMode = "focus"
         self.action('ShowMenu()')
         self.action('HideMenu()')
+
+
+    def test_icons(self):
+        self.action('CreatePlace(Courtyard, Courtyard)')
+        self.action('CreateCharacter(BobC, B)')
+        self.action('SetPosition(BobC, Courtyard.Fountain)')
+        self.action('CreateCharacter(Merchant, G)')
+        self.action('SetCameraFocus(BobC)')
+        self.action('SetCameraMode(follow)')
+        self.action('SetPosition(Merchant, Courtyard.Exit)')
+        self.action('WalkTo(BobC, Merchant)')
+        self.action('Face(BobB, Merchant)')
+        self.action('EnableInput()')
+        sublist = []
+        for i in range(0, len(CamelotLists.Icons), 10):
+            sublist.append(CamelotLists.Icons[i:i + 10])
+        for lists in sublist:
+            for icons in lists:
+                command_list = ['EnableIcon', str(icons), icons, 'Merchant']
+                self.action(self.create_command(command_list))
+                if lists.index(icons) == len(lists) - 1:
+                    self.action('Wait(2)')
+                    for deleteIcons in lists:
+                        command_list = ['DisableIcon', str(deleteIcons), 'Merchant']
+                        self.action(self.create_command(command_list))
+
+    def play_sound(self):
+        for i in range(len(CamelotLists.SoundEffects_Actions[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Actions[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Actions[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Ambient[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Ambient[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Ambient[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Characters[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Characters[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Characters[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Effects[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Effects[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Effects[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Furniture[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Furniture[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_Furniture[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Music[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_Music[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
+            self.action(self.create_command(command_list))
+        for i in range(len(CamelotLists.SoundEffects_Music[0])):
+            command_list = ['PlaySound', CamelotLists.SoundEffects_UI[0][i], self.focusCharacter]
+            self.action(self.create_command(command_list))
+            command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
+            self.action(self.create_command(command_list))
+
+    def test(self):
+        self.action('WalkToSpot(BobB, 300, 0, 10')
+        self.action('WalkToSpot(A, 300, 0, 11.3')
+        self.action('WalkToSpot(C, 300, 0, 8.7')
+        self.action('WalkToSpot(D, 301.3, 0, 10')
+        self.action('WalkToSpot(B, 298.7, 0, 10')
+        self.action('Face(A, BobB)')
+        self.action('Face(B, BobB)')
+        self.action('Face(C, BobB)')
+        self.action('Face(D, BobB)')
+
+    def test2(self):
+        self.action('SetCameraFocus(A)')
+        self.action('SetCameraFocus(B)')
+        self.action('SetCameraFocus(C)')
+        self.action('SetCameraFocus(D)')
+
+
 
     def action(self, command):
         print('start ' + command)
@@ -462,6 +386,19 @@ class TestingGui:
                     return False
             else:
                 return True
+
+    @staticmethod
+    def create_command(command_list):
+        if len(command_list) > 1:
+            new_command = command_list[0] + "("
+            for i in command_list[1:]:
+                new_command = new_command + i + ","
+            new_command = new_command[:-1]
+            new_command = new_command + ")"
+        else:
+            new_command = command_list[0] + "()"
+
+        return new_command
 
 
 newUI = TestingGui(root)
