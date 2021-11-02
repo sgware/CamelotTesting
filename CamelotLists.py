@@ -37,6 +37,7 @@ Hairsyles_BDFH = ["Mage", "Mage_Beard", "Mage_Full", "Musketeer", "Musketeer_Bea
 Outfits_All_Body_Types = ["Bandit", "Beggar", "HeavyArmour", "LightArmour", "Merchant", "Naked",
                           "Noble", "Peasant", "Priest"]
 
+Actions_Single = ["Clap", "Die", "Revive", "Drink", "Laugh", "Wave"]
 Eyecolor = ["white", "black", "blue", "red", "brown", "green"]
 
 Outfits_ACEG = ["Queen", "Witch"]
