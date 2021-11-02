@@ -11,6 +11,7 @@ cottage_locations = ["Door", "Bed", "Chair", "Table", "Shelf", "Bookshelf", "Che
 
 
 class TestingGui:
+    #generates the main UI
     def __init__(self, master):
         self.focusCharacter = "BobB"
         self.characters = ['BobA', 'BobB', 'BobC', 'BobD', 'BobE', 'BobF', 'BobG', 'BobH']
@@ -71,7 +72,8 @@ class TestingGui:
         manualwindow.geometry("300x300")
 
         manualwindow.mainloop()
-
+    #test the location that is passed in
+    #Go around the the location with focus character
     def test_Place(self, place: Location.Location):
         self.action("SetCameraMode(track)")
         self.action(self.create_command(["SetCameraFocus", self.focusCharacter]))
@@ -104,7 +106,7 @@ class TestingGui:
             self.action(self.create_command(command_list))
             self.action(self.create_command(["Exit", self.focusCharacter, place.title + "." + portal]))
             self.action(self.create_command(["Enter", self.focusCharacter, place.title + "." + portal]))
-
+    #Go through all the bodytypes and all the clothing, and depending the bodytype change to the right clothing
     def all_clothing(self):
         oldcharacter = self.focusCharacter
         # self.action('SetCameraMode(track)')
@@ -138,7 +140,7 @@ class TestingGui:
                     self.action(self.create_command(command_list))
                     self.action('Wait(.5)')
             oldcharacter = i
-
+#enable input
     def inputEnable(self):
         if self.isInputEnabled:
             self.action('DisableInput()')
@@ -146,25 +148,25 @@ class TestingGui:
         else:
             self.action('EnableInput()')
             self.isInputEnabled = True
-
+#go through all the clothing for all body types
     def clothing(self):
         for i in CamelotLists.Outfits_All_Body_Types:
             command_list = ['SetClothing', self.focusCharacter, i]
             self.action(self.create_command(command_list))
             self.test2()
-
+#all posisble hair style (beard bug)
     def hair_style(self):
         for i in CamelotLists.Hairstyles_All_Body_Types:
             command_list = ['SetHairStyle', self.focusCharacter, i]
             self.action(self.create_command(command_list))
             self.action('Wait(.5)')
-
+#go through all eye color
     def eye_color(self):
         for i in CamelotLists.Eyecolor:
             command_list = ['SetEyeColor', self.focusCharacter, i]
             self.action(self.create_command(command_list))
             self.action('Wait(.5)')
-
+#reset the character and it's attributes
     def default(self):
         # command_list = ['SetCameraMode', focus]
         # self.action(self.create_command(command_list))
@@ -180,19 +182,19 @@ class TestingGui:
         self.action(self.create_command(command_list))
         command_list = ['SetSkinColor', self.focusCharacter, str(0)]
         self.action(self.create_command(command_list))
-
+#go through all haircolor
     def hair_color(self):
         for i in CamelotLists.Hair_Color:
             command_list = ['SetHairColor', self.focusCharacter, i]
             self.action(self.create_command(command_list))
             self.action('Wait(.5)')
-
+#go through all skin color
     def skin_color(self):
         for i in range(10):
             command_list = ['SetSkinColor', self.focusCharacter, str(i)]
             self.action(self.create_command(command_list))
             self.action('Wait(.5)')
-
+#better version in emexp
     def items(self):
         for i in CamelotLists.Items:
             command_list = ['CreateItem', i, i]
@@ -202,13 +204,13 @@ class TestingGui:
             self.action('Wait(.75)')
             command_list = ['Pocket', self.focusCharacter, i]
             self.action(self.create_command(command_list))
-
+#better version in emexp
     def visual_effects(self):
         for i in CamelotLists.Visual_Effects:
             command_list = ['CreateEffect', self.focusCharacter, i]
             self.action(self.create_command(command_list))
             self.action('Wait(1)')
-
+#Management for the outputbox
     def clear_output(self):
         self.outputBox.delete('1.0', END)
 
@@ -216,13 +218,13 @@ class TestingGui:
         input = self.commandBox.get("1.0", 'end-1c')
         self.action(input)
         self.commandBox.delete('1.0', END)
-
+# crashes in cottage
     def run_around(self):
         for i in cottage_locations:
             command_list = ['WalkTo', self.focusCharacter, self.locationName + "." + i]
             self.action(self.create_command(command_list))
             self.action('Wait(1)')
-
+#Experiment forestpath
     def test_forestpath(self):
         self.action("SetCameraMode(track)")
         self.currentFocusMode = "track"
@@ -290,7 +292,7 @@ class TestingGui:
         self.action('ShowMenu()')
         self.action('HideMenu()')
 
-
+#Create a place to test all the icons by going up to the merchant
     def test_icons(self):
         self.action('CreatePlace(Courtyard, Courtyard)')
         self.action('CreateCharacter(BobC, B)')
@@ -314,7 +316,7 @@ class TestingGui:
                     for deleteIcons in lists:
                         command_list = ['DisableIcon', str(deleteIcons), 'Merchant']
                         self.action(self.create_command(command_list))
-
+#Play all the sounds for their duration
     def play_sound(self):
         for i in range(len(CamelotLists.SoundEffects_Actions[0])):
             command_list = ['PlaySound', CamelotLists.SoundEffects_Actions[0][i], self.focusCharacter]
@@ -370,7 +372,7 @@ class TestingGui:
         self.action('SetCameraFocus(D)')
 
 
-
+#take any action and pass it to the Camelot, better version in emexp
     def action(self, command):
         print('start ' + command)
         while True:
@@ -387,7 +389,7 @@ class TestingGui:
                     return False
             else:
                 return True
-
+#Take in an array of string and return it in the proper command format.
     @staticmethod
     def create_command(command_list):
         if len(command_list) > 1:
