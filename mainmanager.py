@@ -120,6 +120,7 @@ class TestingGui:
             if i.title == selected_place:
                 selected_location = i
         self.action(self.test_Place(selected_location))
+        newLabel.config(text= "Finished")
 
 
 
