@@ -105,6 +105,8 @@ Ruins = parseData("PlaceCSVs\\Ruins.csv", "Ruins")
 
 SpookyPath = parseData("PlaceCSVs\\SpookyPath.csv", "SpookyPath")
 
+Tavern = parseData("PlaceCSVs\\Tavern.csv", "SpookyPath")
+
 Storage = parseData("PlaceCSVs\\Storage.csv", "Storage")
 locations_list.append(AlchemyShop)
 locations_list.append(Bridge)
@@ -124,7 +126,7 @@ locations_list.append(Library)
 locations_list.append(Port)
 locations_list.append(Ruins)
 locations_list.append(SpookyPath)
-
+locations_list.append(Tavern)
 
 
 
