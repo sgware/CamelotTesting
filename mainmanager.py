@@ -185,38 +185,29 @@ class TestingGui:
                 self.action(self.create_command(command_list))
                 self.action('Wait(.5)')
             self.action(self.create_command(['SetPosition', i]))
-
-    def doOnePersonView(self):
-        if self.isCreated:
-            self.action('SetCameraFocus(follow)')
-        if not self.isCreated and not self.onePersonView:
-            self.action('CreateCharacter(C, C)')
-            command_list = ['SetPosition', "C", self.characterLocation]
-            self.action(self.create_command(command_list))
-            self.action('WalkToSpot(C, 300, 0, 8)')
-            self.onePersonView = True
-        self.action(self.create_command(["SetCameraFocus", "C"]))
-        self.action('SetCameraMode(follow)')
-        self.action(self.create_command(["SetCameraFocus", self.focusCharacter]))
-        command_list = ['SetPosition', self.focusCharacter, self.characterLocation]
-        self.action(self.create_command(command_list))
-        self.action(self.create_command(["WalkToSpot", self.focusCharacter, "300", "0", "10"]))
-
+            
     def itemsTest(self):
-        self.doOnePersonView()
+        item_character = self.focusCharacter
+        wait_time = "1.5"
+        self.action(self.create_command(['SetCameraFocus', item_character]))
+        self.action('SetCameraMode(follow)')
         for i in CamelotLists.Items:
             command_list = ['CreateItem', i, i]
             self.action(self.create_command(command_list))
-            command_list = ['SetPosition', i, self.focusCharacter]
+            command_list = ['SetPosition', i, item_character]
             self.action(self.create_command(command_list))
             if i == CamelotLists.Items[0]:
                 self.action(self.create_command(["SetCameraFocus", i]))
-            command_list = ['Pocket', self.focusCharacter, i]
+            self.action("Wait(%s)"% wait_time)
+            command_list = ['Pocket', item_character, i]
             self.action(self.create_command(command_list))
-            command_list = ['Draw', self.focusCharacter, i]
+            self.action("Wait(%s)"% wait_time)
+            command_list = ['Draw', item_character, i]
             self.action(self.create_command(command_list))
-            command_list = ['Sheathe', self.focusCharacter, i]
+            self.action("Wait(%s)"% wait_time)
+            command_list = ['Sheathe', item_character, i]
             self.action(self.create_command(command_list))
+            self.action("Wait(%s)"% wait_time)
 
         self.action(self.create_command(["SetCameraFocus", self.focusCharacter]))
 
