@@ -47,7 +47,7 @@ Outfits_BDFH = ["King", "Warlock"]
 
 All_Places = ["AlchemyShop", "Blacksmith", "Bridge", "Camp", "CastleBedroom", "CastleCrossroads", "City", "Cottage",
               "Courtyard", "Dining Room", "Dungeon", "Farm", "ForestPath", "GreatHall", "Hallway", "Library", "Port",
-              "Ruins", "SpookyPath", "Storage"]
+              "Ruins", "SpookyPath", "Storage", "Tavern"]
 
 SoundEffects_Actions = [["Clap", "Draw", "Eat", "Hammer", "Lock", "Pocket", "Sheathe", "Unlock",
                         "Unpocket", "Write"], ["1", "4", "1", "4", "1", "1", "1", "1", "1","1","1"]]
