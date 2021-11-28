@@ -31,6 +31,7 @@ class TestingGui:
         self.isBodyCharacter = False
         self.characters = ["charA", "charB", "charC", "charD", "charE", "charF", "charG", "charH"]
         self.placeItem = "placebag"
+        self.mainCharacter = "BobB"
         # # buttons/textbox for input and output for camelot
         self.myButton = Button(master, text="Run Command", command=self.get_input)
         self.clearButton = Button(master, text="Clear", command=self.clear_output)
@@ -84,7 +85,7 @@ class TestingGui:
 
 
     def run_all_tests(self):
-        self.clothingTest()
+        #self.clothingTest()
         self.hair_style_test()
         self.itemsTest()
         for i in CamelotLists.locations_list:
@@ -219,6 +220,8 @@ class TestingGui:
     def hair_style_test(self):
 
         old_character = ""
+        self.action(self.create_command(['SetCameraMode', 'focus']))
+
         if not self.isBodyCharacter:
             for i in self.characters:
                 command_list = ['CreateCharacter', i, i[-1]]
@@ -248,7 +251,7 @@ class TestingGui:
 
 
     def itemsTest(self):
-        item_character = self.focusCharacter
+        item_character = self.mainCharacter
         wait_time = "1.5"
         self.action(self.create_command(['SetPosition', item_character, "BobsHouse"]))
         self.action(self.create_command(['SetCameraFocus', item_character]))
@@ -390,6 +393,7 @@ class TestingGui:
                 return True
 
     def test_Place(self, place: Location):
+        self.focusCharacter = self.mainCharacter
         self.action(self.create_command(["CreatePlace", place.title, place.title]))
         for i in ("track", "follow", "focus"):
             self.action("SetCameraMode(" + i + ")")
