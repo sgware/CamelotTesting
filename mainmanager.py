@@ -85,7 +85,7 @@ class TestingGui:
 
 
     def run_all_tests(self):
-        #self.clothingTest()
+        self.clothingTest()
         self.hair_style_test()
         self.itemsTest()
         for i in CamelotLists.locations_list:
