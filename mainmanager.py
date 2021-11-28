@@ -58,8 +58,6 @@ class TestingGui:
         self.partialTestingButton.pack()
 
 
-
-
         # call initialize
         self.initialize()
 
@@ -87,14 +85,14 @@ class TestingGui:
 
     def run_all_tests(self):
         self.clothingTest()
-        self.hair_style_test();
-        self.itemsTest();
+        self.hair_style_test()
+        self.itemsTest()
         for i in CamelotLists.locations_list:
             self.action(self.test_Place(i))
         self.visual_effects_test()
-        self.play_sound()
         self.single_actions()
         self.test_two_CharacterActions()
+        self.play_sound()
         self.test_icons()
 
 
@@ -380,7 +378,7 @@ class TestingGui:
                 if i.startswith('succeeded'):
                     self.outputBox.insert(INSERT, i + '\n')
                     return True
-                elif i.startswith('fails'):
+                elif i.startswith('fail'):
                     ctypes.windll.user32.MessageBoxW(0, "failed" + str(command), "Fail Detected", 1)
                     self.outputBox.insert(INSERT, i + '\n')
                     return False
