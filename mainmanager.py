@@ -30,7 +30,7 @@ class TestingGui:
         self.onePersonView = False
         self.isBodyCharacter = False
         self.characters = ["charA", "charB", "charC", "charD", "charE", "charF", "charG", "charH"]
-        #
+        self.placeItem = "placebag"
         # # buttons/textbox for input and output for camelot
         self.myButton = Button(master, text="Run Command", command=self.get_input)
         self.clearButton = Button(master, text="Clear", command=self.clear_output)
@@ -220,6 +220,7 @@ class TestingGui:
 
     def hair_style_test(self):
 
+        old_character = ""
         if not self.isBodyCharacter:
             for i in self.characters:
                 command_list = ['CreateCharacter', i, i[-1]]
@@ -243,7 +244,7 @@ class TestingGui:
                     command_list = ['SetHairStyle', i, n]
                     self.action(self.create_command(command_list))
                     self.action('Wait(.5)')
-
+            self.action(self.create_command(['SetCameraFocus', self.characterLocation + ".Exit"]))
             self.action(self.create_command(['SetPosition', i]))
 
 
@@ -392,8 +393,6 @@ class TestingGui:
 
     def test_Place(self, place: Location):
         self.action(self.create_command(["CreatePlace", place.title, place.title]))
-        command_list = ['CreateItem', CamelotLists.Items[1], CamelotLists.Items[1]]
-        self.action(self.create_command(command_list))
         for i in ("track", "follow", "focus"):
             self.action("SetCameraMode(" + i + ")")
             command_list = ['SetPosition', self.focusCharacter, place.title]
@@ -409,18 +408,18 @@ class TestingGui:
                     if location[1] is not None:
                         for attr in location[1]:
                             if attr == "Surface":
-                                command_list = ['Put', self.focusCharacter, CamelotLists.Items[1],
+                                command_list = ['Put', self.focusCharacter, self.placeItem,
                                                 place.title + "." + location[0]]
                                 self.action(self.create_command(command_list))
-                                command_list = ['Take', self.focusCharacter, CamelotLists.Items[1],
+                                command_list = ['Take', self.focusCharacter, self.placeItem,
                                                 place.title + "." + location[0]]
                                 self.action(self.create_command(command_list))
                                 if location[2] is not None:
                                     for pos in location[2]:
-                                        command_list = ['Put', self.focusCharacter, CamelotLists.Items[1],
+                                        command_list = ['Put', self.focusCharacter, self.placeItem,
                                                         place.title + "." + location[0] + "." + pos]
                                         self.action(self.create_command(command_list))
-                                        command_list = ['Take', self.focusCharacter, CamelotLists.Items[1],
+                                        command_list = ['Take', self.focusCharacter, self.placeItem,
                                                         place.title + "." + location[0] + "." + pos]
                                         self.action(self.create_command(command_list))
                             if attr == "Seat":
@@ -470,6 +469,7 @@ class TestingGui:
         self.action('SetPosition(BobB, BobsHouse.Door)')
         self.action('SetCameraFocus(BobB)')
         self.action('SetCameraMode(focus)')
+        self.action('CreateItem(placebag, Bag)')
         self.action('ShowMenu()')
         self.action('HideMenu()')
         self.focusCharacter = "BobB"
