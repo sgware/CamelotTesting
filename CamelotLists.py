@@ -25,7 +25,7 @@ Icons = ["arrest", "draw", "drink", "exit", "forge", "kneel", "listen", "lockpic
 
 Hair_Color = ["gray", "black", "brown", "red", "blonde"]
 
-Hairstyles_All_Body_Types = ["Long", "Spiky", "Short", "Short_Beard", "Short_Full"]
+Hairstyles_All_Body_Types = ["Long", "Spiky", "Short"]
 
 BodyTypes = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
@@ -33,7 +33,7 @@ Expressions = ["neutral", "happy", "sad", "angry", "disgusted", "scared", "surpr
 
 Hairsyles_ACEG = ["Ponytail", "Straight"]
 
-Hairsyles_BDFH = ["Mage", "Mage_Beard", "Mage_Full", "Musketeer", "Musketeer_Beard", "Musketeer_Full"]
+Hairsyles_BDFH = ["Mage", "Mage_Beard", "Mage_Full", "Musketeer", "Musketeer_Beard", "Musketeer_Full", "Short_Beard", "Short_Full"]
 
 Outfits_All_Body_Types = ["Bandit", "Beggar", "HeavyArmour", "LightArmour", "Merchant", "Naked",
                           "Noble", "Peasant", "Priest"]
@@ -109,6 +109,7 @@ Storage = parseData("PlaceCSVs\\Storage.csv", "Storage")
 
 Tavern = parseData("PlaceCSVs\\Tavern.csv", "Tavern")
 
+
 locations_list.append(AlchemyShop)
 locations_list.append(Bridge)
 locations_list.append(Camp)
@@ -128,6 +129,7 @@ locations_list.append(Port)
 locations_list.append(Ruins)
 locations_list.append(SpookyPath)
 locations_list.append(Tavern)
+
 
 
 
