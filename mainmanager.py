@@ -85,9 +85,9 @@ class TestingGui:
 
 
     def run_all_tests(self):
-        self.clothingTest()
-        self.hair_style_test()
-        self.itemsTest()
+        #self.clothingTest()
+        #self.hair_style_test()
+        #self.itemsTest()
         for i in CamelotLists.locations_list:
             self.action(self.test_Place(i))
         self.visual_effects_test()
@@ -388,6 +388,8 @@ class TestingGui:
                 elif i.startswith('error'):
                     self.outputBox.insert(INSERT, i + '\n')
                     ctypes.windll.user32.MessageBoxW(0, "error " + str(command), "Error Detected", 1)
+                    e = input()
+                    self.outputBox.insert(INSERT, e + '\n')
                     return False
             else:
                 return True
