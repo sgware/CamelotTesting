@@ -389,8 +389,6 @@ class TestingGui:
                 elif i.startswith('error'):
                     self.outputBox.insert(INSERT, i + '\n')
                     ctypes.windll.user32.MessageBoxW(0, i + " " + str(command), "Error Detected", 1)
-                    e = input()
-                    self.outputBox.insert(INSERT, e + '\n')
                     return False
             else:
                 return True
