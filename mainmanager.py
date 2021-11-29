@@ -89,7 +89,7 @@ class TestingGui:
         #self.hair_style_test()
         #self.itemsTest()
         for i in CamelotLists.locations_list:
-            self.action(self.test_Place(i))
+            self.test_Place(i)
         self.visual_effects_test()
         self.single_actions()
         self.test_two_CharacterActions()
@@ -383,12 +383,12 @@ class TestingGui:
                     self.outputBox.insert(INSERT, i + '\n')
                     return True
                 elif i.startswith('fail'):
-                    ctypes.windll.user32.MessageBoxW(0, "failed" + str(command), "Fail Detected", 1)
+                    ctypes.windll.user32.MessageBoxW(0, i + " " + str(command), "Fail Detected", 1)
                     self.outputBox.insert(INSERT, i + '\n')
                     return False
                 elif i.startswith('error'):
                     self.outputBox.insert(INSERT, i + '\n')
-                    ctypes.windll.user32.MessageBoxW(0, "error " + str(command), "Error Detected", 1)
+                    ctypes.windll.user32.MessageBoxW(0, i + " " + str(command), "Error Detected", 1)
                     e = input()
                     self.outputBox.insert(INSERT, e + '\n')
                     return False

@@ -71,6 +71,8 @@ SoundEffects_UI = [["Button", "Error", "Flute1", "Flute2", "Menu"],["1", "2", "2
 locations_list = []
 AlchemyShop = parseData("PlaceCSVs\\AlchemyShop.csv", "AlchemyShop")
 
+Blacksmith = parseData("PlaceCSVs\\Blacksmith.csv", "Blacksmith")
+
 Bridge = parseData("PlaceCSVs\\Bridge.csv", "Bridge")
 
 Camp = parseData("PlaceCSVs\\Camp.csv", "Camp")
@@ -111,6 +113,7 @@ Tavern = parseData("PlaceCSVs\\Tavern.csv", "Tavern")
 
 
 locations_list.append(AlchemyShop)
+locations_list.append(Blacksmith)
 locations_list.append(Bridge)
 locations_list.append(Camp)
 locations_list.append(CastleBedroom)
