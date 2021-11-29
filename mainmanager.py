@@ -345,6 +345,7 @@ class TestingGui:
                     self.spinCamera()
             command_list = ['SetPosition', i]
             self.action(self.create_command(command_list))
+            self.action(self.create_command(['SetClothing', i]))
 
     def spinCamera(self):
         self.action('SetCameraFocus(A)')
