@@ -549,54 +549,58 @@ class TestingGui:
     def test_two_CharacterActions(self):
         self.action("CreatePlace(CharacterInteraction, Farm")
         self.action("CreateCharacter(TestDummy, A)")
+        second_character = "BobB"
+        self.action("CreateItem(DummyPotion, BluePotion)")
+        self.action("CreateItem(DummySword, Sword)")
         for char in ("TestDummy", "BobB"):
             command_list = ['SetCameraFocus', char]
             self.action(self.create_command(command_list))
             self.action("SetCameraMode(Follow)")
-            command_list = ['SetPosition', self.focusCharacter, "CharacterInteraction"]
+            command_list = ['SetPosition', second_character, "CharacterInteraction"]
             self.action(self.create_command(command_list))
             self.action("SetPosition(TestDummy, CharacterInteraction.Exit)")
-            command_list = ['SetClothing', self.focusCharacter, "Peasant"]
+            command_list = ['SetClothing', second_character, "Peasant"]
             self.action(self.create_command(command_list))
             self.action("SetClothing(TestDummy, Peasant)")
 
-            self.action("CreateItem(DummySword, Sword)")
-            command_list = ["Draw", self.focusCharacter, "DummySword"]
+            command_list = ["Draw", second_character, "DummySword"]
             self.action(self.create_command(command_list))
-            command_list = ["Attack", self.focusCharacter, "TestDummy", "false"]
+            command_list = ["Attack", second_character, "TestDummy", "false"]
             self.action(self.create_command(command_list))
-            command_list = ["Attack", self.focusCharacter, "TestDummy", "true"]
+            command_list = ["Attack", second_character, "TestDummy", "true"]
             self.action(self.create_command(command_list))
-            command_list = ["Pocket", self.focusCharacter, "DummySword"]
-            self.action(self.create_command(command_list))
-
-            self.walkAway()
-            command_list = ["Cast", self.focusCharacter, "TestDummy"]
-            self.action(self.create_command(command_list))
-            command_list = ["DanceTogether", self.focusCharacter, "TestDummy"]
+            command_list = ["Pocket", second_character, "DummySword"]
             self.action(self.create_command(command_list))
 
             self.walkAway()
-            command_list = ["Face", self.focusCharacter, "TestDummy"]
+            command_list = ["Cast", second_character, "TestDummy"]
             self.action(self.create_command(command_list))
-            self.action("CreateItem(DummyPotion, BluePotion)")
-            command_list = ["Give", self.focusCharacter, "DummyPotion", "TestDummy"]
-            self.action(self.create_command(command_list))
-            command_list = ["LookAt", self.focusCharacter, "TestDummy"]
-            self.action(self.create_command(command_list))
-            command_list = ["LookAt", self.focusCharacter]
+            command_list = ["DanceTogether", second_character, "TestDummy"]
             self.action(self.create_command(command_list))
 
             self.walkAway()
-            command_list = ["Put", "TestDummy", "DummyPotion", self.focusCharacter]
+            command_list = ["Face", second_character, "TestDummy"]
+            self.action(self.create_command(command_list))
+
+            command_list = ["Give", second_character, "DummyPotion", "TestDummy"]
+            self.action(self.create_command(command_list))
+            command_list = ["LookAt", second_character, "TestDummy"]
+            self.action(self.create_command(command_list))
+            command_list = ["LookAt", second_character]
             self.action(self.create_command(command_list))
 
             self.walkAway()
-            command_list = ["Take", "TestDummy", "DummyPotion", self.focusCharacter]
+            command_list = ["Put", "TestDummy", "DummyPotion", second_character]
+            self.action(self.create_command(command_list))
+
+            self.walkAway()
+            command_list = ["Take", "TestDummy", "DummyPotion", second_character]
             self.action(self.create_command(command_list))
 
 
-
+    def walkAway(self):
+        command_list = ['MoveAway', self.focusCharacter]
+        self.action(self.create_command(command_list))
 
 
 
