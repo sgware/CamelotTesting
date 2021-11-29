@@ -8,7 +8,7 @@ Table,No,Yes,No,No,No,Left|Right|FrontLeft|BackLeft|FrontRight|BackRight
 RoundTable,No,Yes,No,No,No,
 Chair,No,No,Yes,No,No,
 Fireplace,No,No,No,No,No,
-Bar,Yes,Yes,No,No,No,Behind|Left|Center|Right
+Bar,Yes,Yes,No,No,No,Left|Center|Right
 Barrel,No,Yes,No,No,No,
 Shelf,No,Yes,No,No,No,Left|Right
 BackDoor,Yes,No,No,No,Yes,

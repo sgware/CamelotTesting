@@ -1,7 +1,7 @@
 Name,Can Open and Close,Surface,Seat,Furniture,Portal,Positions
 Door,Yes,No,No,No,Yes,
 Chest,Yes,No,No,No,No,
-Bar,Yes,Yes,No,No,No,Behind|Left|Center|Right
+Bar,Yes,Yes,No,No,No,Left|Center|Right
 BackDoor,Yes,No,No,No,No,
 RightBookcase,No,No,No,No,No,
 LeftBookcase,No,No,No,No,No,
