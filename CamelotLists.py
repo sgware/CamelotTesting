@@ -1,6 +1,8 @@
 import Location
 from PlaceReader import parseData
 
+# too add items, visual effects and icons, simply add them to the list here
+
 Items = ["Apple", "Bag", "BlueBook", "BlueCloth", "BlueKey", "BluePotion", "Bottle", "Bread", "ChickenLeg",
          "Coin", "Compass", "Cup", "EvilBook", "GoldCup", "GreenBook", "GreenKey", "GreenPotion", "Hammer",
          "Helmet", "InkandQuill", "JewelKey", "LitTorch", "Lock", "MagnifyingGlass", "OpenScroll", "PurpleBook",
@@ -22,10 +24,15 @@ Icons = ["arrest", "draw", "drink", "exit", "forge", "kneel", "listen", "lockpic
          "sleep", "snake", "sunrise", "time", "tree", "anvil", "bridge", "campfire", "castle", "city", "cottage",
          "dungeon", "forest", "mug", "ship", "shopsign", "stonepath"]
 
+# Adding colors
 
 Hair_Color = ["gray", "black", "brown", "red", "blonde"]
 
+# Hair styles all body types can use
+
 Hairstyles_All_Body_Types = ["Long", "Spiky", "Short"]
+
+# list of all body types
 
 BodyTypes = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
@@ -35,19 +42,22 @@ Hairsyles_ACEG = ["Ponytail", "Straight"]
 
 Hairsyles_BDFH = ["Mage", "Mage_Beard", "Mage_Full", "Musketeer", "Musketeer_Beard", "Musketeer_Full", "Short_Beard", "Short_Full"]
 
+# outfits for all body types
 Outfits_All_Body_Types = ["Bandit", "Beggar", "HeavyArmour", "LightArmour", "Merchant", "Naked",
                           "Noble", "Peasant", "Priest"]
 
-Actions_Single = ["Clap", "Die", "Revive", "Drink", "Laugh", "Wave"]
+# Single actions, note if Revive is not after Die, it does not work well
+
+Actions_Single = ["Clap", "Die", "Revive", "Drink", "Laugh", "Wave", "Kneel"]
+
 Eyecolor = ["white", "black", "blue", "red", "brown", "green"]
 
+# outfits for specific body types
 Outfits_ACEG = ["Queen", "Witch"]
 
 Outfits_BDFH = ["King", "Warlock"]
 
-All_Places = ["AlchemyShop", "Blacksmith", "Bridge", "Camp", "CastleBedroom", "CastleCrossroads", "City", "Cottage",
-              "Courtyard", "Dining Room", "Dungeon", "Farm", "ForestPath", "GreatHall", "Hallway", "Library", "Port",
-              "Ruins", "SpookyPath", "Storage", "Tavern"]
+# too add sound, add the sound name and it's duration in seconds
 
 SoundEffects_Actions = [["Clap", "Draw", "Eat", "Hammer", "Lock", "Pocket", "Sheathe", "Unlock",
                         "Unpocket", "Write"], ["1", "4", "1", "4", "1", "1", "1", "1", "1","1","1"]]
@@ -67,6 +77,12 @@ SoundEffects_Music = [["Danger1", "Danger2", "Danger3", "Dramatic", "Explorer", 
 
 SoundEffects_UI = [["Button", "Error", "Flute1", "Flute2", "Menu"],["1", "2", "2", "3", "1"]]
 
+# too add a new place, add it to All_Places, and using the CSV for the file, follow the below format
+# We tried to use for loops to make it more streamlined but Camelot does not run if we do not run the commands line by line
+
+All_Places = ["AlchemyShop", "Blacksmith", "Bridge", "Camp", "CastleBedroom", "CastleCrossroads", "City", "Cottage",
+              "Courtyard", "Dining Room", "Dungeon", "Farm", "ForestPath", "GreatHall", "Hallway", "Library", "Port",
+              "Ruins", "SpookyPath", "Storage", "Tavern"]
 
 locations_list = []
 AlchemyShop = parseData("PlaceCSVs\\AlchemyShop.csv", "AlchemyShop")

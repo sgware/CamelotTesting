@@ -14,22 +14,26 @@ from PlaceReader import parseData
 root = Tk()
 root.title('Camelot Testing Environment')
 
-# for i in CamelotLists.All_Places:
-#     CamelotLists.locations_list.append(parseData("PlaceCSVs\\%s" % i, i))
 
 class TestingGui:
     def __init__(self, master):
         # hold information about the current location/character
+        # set the time to wait between tests
+        self.wait_time = 2
 
         self.focusCharacter = ""
         self.locationName = "BobsHouse"
+        # to ensure two focus mode do not overlap
         self.currentFocusMode = "follow"
         self.isInputEnabled = False
+        # location name of character test
         self.characterLocation = "characterFarm"
         self.isCreated = False
         self.onePersonView = False
         self.isBodyCharacter = False
+        # all the characters to be used for clothing/hairstyles, last character is used for the body type
         self.characters = ["charA", "charB", "charC", "charD", "charE", "charF", "charG", "charH"]
+        # item name that will be placed by the place test
         self.placeItem = "placebag"
         self.mainCharacter = "BobB"
         # # buttons/textbox for input and output for camelot
@@ -37,7 +41,7 @@ class TestingGui:
         self.clearButton = Button(master, text="Clear", command=self.clear_output)
         self.commandBox = Text(master, height=5, width=40)
         self.outputBox = Text(master, height=12, width=40)
-        #
+        # reset button but scrapped due to it not working
         # self.reset_button = Button(master, text="Test", command=self.resetCamelot)
         # self.initialize_button = Button(master, text="Initialize", command=self.initialize)
         #
@@ -71,23 +75,23 @@ class TestingGui:
         partialTestingWindow.title("Partial Testing Experience Manager")
         partialTestingWindow.geometry("400x400")
         partialTestingWindow.update()
-
+        # create buttons and assign its proper function
         Button(partialTestingWindow, text="Character", command=lambda: self.createCharacterWindow(partialTestingWindow)).pack()
         Button(partialTestingWindow, text="Items", command=self.itemsTest).pack()
         Button(partialTestingWindow, text="Places", command=lambda: self.createPlacesTestingWidnow(partialTestingWindow)).pack()
         Button(partialTestingWindow, text="Visual Effects", command=self.visual_effects_test).pack()
         Button(partialTestingWindow, text="Sound Effects", command=self.play_sound).pack()
-        Button(partialTestingWindow, text="Animations", command=self.single_actions).pack()
-        Button(partialTestingWindow, text="Two Char Animations", command=self.test_two_CharacterActions).pack()
+        Button(partialTestingWindow, text="Animations Single", command=self.single_actions).pack()
+        Button(partialTestingWindow, text="Animations Double", command=self.test_two_CharacterActions).pack()
         Button(partialTestingWindow, text="Icons", command=self.test_icons).pack()
 
         partialTestingWindow.mainloop()
 
-
+    # runs all tests
     def run_all_tests(self):
-        #self.clothingTest()
-        #self.hair_style_test()
-        #self.itemsTest()
+        self.clothingTest()
+        self.hair_style_test()
+        self.itemsTest()
         for i in CamelotLists.locations_list:
             self.test_Place(i)
         self.visual_effects_test()
@@ -96,7 +100,7 @@ class TestingGui:
         self.play_sound()
         self.test_icons()
 
-
+    # create a places testing window that allows for a specific place to be picked
     def createPlacesTestingWidnow(self, master):
         placesWindow = Toplevel()
         placesWindow.title("Manual Places Experience Manager")
@@ -109,7 +113,7 @@ class TestingGui:
 
         placesBox = Listbox(places_frame)
         scrollbar = Scrollbar(places_frame, orient=VERTICAL)
-
+        # get all the places and put it in the listbox
         for i in CamelotLists.All_Places:
             placesBox.insert(END, i)
 
@@ -117,7 +121,7 @@ class TestingGui:
         scrollbar.config(command=placesBox.yview)
         scrollbar.pack(side =RIGHT, fill=Y)
         placesBox.pack(pady=15)
-
+        # label to display the current test
         Label(placesWindow, text="Current Test Running")
         placesLabel = Label(placesWindow, text ="None")
 
@@ -129,7 +133,7 @@ class TestingGui:
 
         placesWindow.mainloop()
 
-
+    # helper function for place testing
     def selectPlace(self, master, newLabel, newlistbox):
 
         selected_place = str(newlistbox.get(newlistbox.curselection()))
@@ -142,7 +146,7 @@ class TestingGui:
         self.action(self.test_Place(selected_location))
 
 
-
+    # create a character window that allows a selection
     def createCharacterWindow(self,master):
         characterWindow = Toplevel()
         characterWindow.title("Manual Character Experience Manager")
@@ -159,7 +163,7 @@ class TestingGui:
 
         characterWindow.mainloop()
 
-
+    # helper function to window
     def properWindow(self,height, width):
         ws = root.winfo_screenwidth()
         hs = root.wininfoscreenwidth()
@@ -173,21 +177,19 @@ class TestingGui:
 
     def visual_effects_test(self):
         visual_character = self.focusCharacter
-        wait_time = "5"
+        # custom time to see the full effect
+        custom_time = "5"
         self.action(self.create_command(['SetPosition', visual_character, "BobsHouse"]))
         self.action(self.create_command(['SetCameraFocus', visual_character]))
         self.action('SetCameraMode(follow)')
         for i in CamelotLists.Visual_Effects:
             command_list = ['CreateEffect', visual_character, i]
             self.action(self.create_command(command_list))
-            self.action("Wait(%s)"% wait_time)
+            self.action("Wait(%s)"% custom_time)
             command_list = ['DisableEffect', visual_character]
             self.action(self.create_command(command_list))
 
-
-
-
-
+    # testing icons, has a manual component due to camelot limit
     def test_icons(self):
         self.action('CreatePlace(Courtyard, Courtyard)')
         self.action('CreateCharacter(BobC, B)')
@@ -200,10 +202,12 @@ class TestingGui:
         self.action('Face(BobB, Merchant)')
         self.action('EnableInput()')
         sublist = []
+        # make a sublist of all the items that will fit in the icon window
         for i in range(0, len(CamelotLists.Icons), 10):
             sublist.append(CamelotLists.Icons[i:i + 10])
         for lists in sublist:
             for icons in lists:
+                # make a merchant that you walk up to and right click
                 command_list = ['EnableIcon', str(icons), icons, 'Merchant']
                 self.action(self.create_command(command_list))
                 if lists.index(icons) == len(lists) - 1:
@@ -212,22 +216,25 @@ class TestingGui:
                         command_list = ['DisableIcon', str(deleteIcons), 'Merchant']
                         self.action(self.create_command(command_list))
 
+    # helper function to ensure two windows stay open
     def openOldWindow(self, master, current):
         master.deiconify()
         current.destroy()
         current.update()
 
+    # hair style testing
     def hair_style_test(self):
 
         old_character = ""
         self.action(self.create_command(['SetCameraMode', 'focus']))
-
+        # if the character has not already been created
         if not self.isBodyCharacter:
             for i in self.characters:
                 command_list = ['CreateCharacter', i, i[-1]]
                 self.action(self.create_command(command_list))
             self.isBodyCharacter = True
         for i in self.characters:
+            # set the character to a custom location
             command_list = ['SetPosition', i, self.characterLocation]
             self.action(self.create_command(command_list))
             self.action(self.create_command(['SetCameraFocus', i]))
@@ -249,36 +256,42 @@ class TestingGui:
             self.action(self.create_command(['SetPosition', i]))
 
 
-
+    # runs items test on the current focus character
     def itemsTest(self):
         item_character = self.mainCharacter
-        wait_time = "1.5"
         self.action(self.create_command(['SetPosition', item_character, "BobsHouse"]))
         self.action(self.create_command(['SetCameraFocus', item_character]))
         self.action('SetCameraMode(follow)')
         for i in CamelotLists.Items:
+            # makes the item
+            # puts the item in the item_character's hand
+            # makes it pocket it
+            # draw it out
+            # sheathe it
+            # repeat
             command_list = ['CreateItem', i, i]
             self.action(self.create_command(command_list))
             command_list = ['SetPosition', i, item_character]
             self.action(self.create_command(command_list))
             if i == CamelotLists.Items[0]:
                 self.action(self.create_command(["SetCameraFocus", i]))
-            self.action("Wait(%s)"% wait_time)
+            self.action("Wait(%s)"% self.wait_time)
             command_list = ['Pocket', item_character, i]
             self.action(self.create_command(command_list))
-            self.action("Wait(%s)"% wait_time)
+            self.action("Wait(%s)"% self.wait_time)
             command_list = ['Draw', item_character, i]
             self.action(self.create_command(command_list))
-            self.action("Wait(%s)"% wait_time)
+            self.action("Wait(%s)"% self.wait_time)
             command_list = ['Sheathe', item_character, i]
             self.action(self.create_command(command_list))
-            self.action("Wait(%s)"% wait_time)
+            self.action("Wait(%s)"% self.wait_time)
 
         self.action(self.create_command(["SetCameraFocus", self.focusCharacter]))
 
     def clothingTest(self):
         # don't want to create new characters every time
         if not self.isCreated:
+            # create custom characters
             if not self.onePersonView:
                 self.action('CreateCharacter(A, A)')
             self.action('CreateCharacter(B, B)')
@@ -303,12 +316,14 @@ class TestingGui:
             command_list = ['SetPosition', "D", self.characterLocation]
             self.action(self.create_command(command_list))
             self.action('SetCameraMode(follow)')
+            # set up location for the four character that the camera will revolve around
             self.action('WalkToSpot(charA, 300, 0, 10)')
             if not self.onePersonView:
                 self.action('WalkToSpot(A, 300, 0, 12)')
             self.action('WalkToSpot(C, 300, 0, 8)')
             self.action('WalkToSpot(D, 302, 0, 10)')
             self.action('WalkToSpot(B, 298, 0, 10)')
+            # make all the character's face a default character
             command_list = ["Face", "A", self.characters[0]]
             self.action(self.create_command(command_list))
             command_list = ["Face", "B", self.characters[0]]
@@ -337,16 +352,18 @@ class TestingGui:
                     command_list = ['SetClothing', i, k]
                     self.action(self.create_command(command_list))
                     self.spinCamera()
-            # male clothing
+            # female clothing
             if i[-1] in ['B', 'D', 'F', 'H']:
                 for m in CamelotLists.Outfits_BDFH:
                     command_list = ['SetClothing', i, m]
                     self.action(self.create_command(command_list))
                     self.spinCamera()
+            # make the character go away
             command_list = ['SetPosition', i]
             self.action(self.create_command(command_list))
             self.action(self.create_command(['SetClothing', i]))
 
+    # helper function for character to spin the camera around
     def spinCamera(self):
         self.action('SetCameraFocus(A)')
         self.action('SetCameraFocus(B)')
@@ -355,7 +372,8 @@ class TestingGui:
 
     def action(self, command):
         print('start ' + command)
-        # set the currentFocusMode to the current focus, don't run it if its the same
+        # set the currentFocusMode to the current focus.
+        # Camelot crashes if its set to the same once
         if command.startswith("SetCameraMode"):
             chosenFocus = ""
             if "focus" in command:
@@ -368,7 +386,7 @@ class TestingGui:
                 return True
             else:
                 self.currentFocusMode = chosenFocus
-
+        # function to stop a crash with setting the camera focus to the same character
         if command.startswith("SetCameraFocus"):
             chosenCharacter = command[command.find('(')+1:command.find(')')]
             if chosenCharacter == self.focusCharacter:
@@ -378,25 +396,31 @@ class TestingGui:
 
         while True:
             i = input()
+            # ignore wait to avoid clutter; Can be removed
             if not i.startswith('succeeded Wait'):
+                # if fail or error print out that error, if success print it to output box
                 if i.startswith('succeeded'):
                     self.outputBox.insert(INSERT, i + '\n')
                     return True
                 elif i.startswith('fail'):
-                    ctypes.windll.user32.MessageBoxW(0, i + " " + str(command), "Fail Detected", 1)
+                    ctypes.windll.user32.MessageBoxW(0, i , "Fail Detected", 1)
                     self.outputBox.insert(INSERT, i + '\n')
                     return False
                 elif i.startswith('error'):
                     self.outputBox.insert(INSERT, i + '\n')
-                    ctypes.windll.user32.MessageBoxW(0, i + " " + str(command), "Error Detected", 1)
+                    ctypes.windll.user32.MessageBoxW(0, i , "Error Detected", 1)
                     return False
             else:
                 return True
 
+    # runs places test on the passed location, goes through all camera angles and places and picks up items in all surfaces
     def test_Place(self, place: Location):
         self.focusCharacter = self.mainCharacter
+        # make the place
         self.action(self.create_command(["CreatePlace", place.title, place.title]))
+        # for every camera angle
         for i in ("track", "follow", "focus"):
+            # make the character move around to the various locations
             self.action("SetCameraMode(" + i + ")")
             command_list = ['SetPosition', self.focusCharacter, place.title]
             self.action(self.create_command(command_list))
@@ -410,6 +434,7 @@ class TestingGui:
                     self.action('Wait(2)')
                     if location[1] is not None:
                         for attr in location[1]:
+                            # if it matches the attributes perform that action
                             if attr == "Surface":
                                 command_list = ['Put', self.focusCharacter, self.placeItem,
                                                 place.title + "." + location[0]]
@@ -477,8 +502,9 @@ class TestingGui:
         self.action('HideMenu()')
         self.focusCharacter = "BobB"
         self.currentFocusMode = "focus"
-    # function that takes in a string list and turns into a proper command for camelot
 
+
+    # function that takes in a string list and turns into a proper command for camelot
     def create_command(self, command_list):
         if len(command_list) > 1:
             new_command = command_list[0] + "("
@@ -494,12 +520,12 @@ class TestingGui:
     # output box functions
     def clear_output(self):
         self.outputBox.delete('1.0', END)
-
+    # helper function for input
     def get_input(self):
         input = self.commandBox.get("1.0", 'end-1c')
         self.action(input)
         self.commandBox.delete('1.0', END)
-
+    # play all the sounds and wait for the duration of the sounds
     def play_sound(self):
         for i in range(len(CamelotLists.SoundEffects_Actions[0])):
             command_list = ['PlaySound', CamelotLists.SoundEffects_Actions[0][i], self.focusCharacter]
@@ -537,6 +563,8 @@ class TestingGui:
             command_list = ['Wait', CamelotLists.SoundEffects_UI[1][i]]
             self.action(self.create_command(command_list))
 
+    # use all single actions animations
+    # kneel causes a crash
     def single_actions(self):
         commandList = ['SetCameraFocus', self.focusCharacter]
         self.action(self.create_command(commandList))
@@ -546,12 +574,15 @@ class TestingGui:
             commandList = [i, self.focusCharacter]
             self.action(self.create_command(commandList))
 
+
+    # test two character animations, repeat from both character's focus
     def test_two_CharacterActions(self):
         self.action("CreatePlace(CharacterInteraction, Farm")
         self.action("CreateCharacter(TestDummy, A)")
         second_character = "BobB"
         self.action("CreateItem(DummyPotion, BluePotion)")
         self.action("CreateItem(DummySword, Sword)")
+        # for both character's perspective
         for char in ("TestDummy", "BobB"):
             command_list = ['SetCameraFocus', char]
             self.action(self.create_command(command_list))
@@ -597,7 +628,7 @@ class TestingGui:
             command_list = ["Take", "TestDummy", "DummyPotion", second_character]
             self.action(self.create_command(command_list))
 
-
+    # helper function for animation test
     def walkAway(self):
         command_list = ['MoveAway', self.focusCharacter]
         self.action(self.create_command(command_list))
