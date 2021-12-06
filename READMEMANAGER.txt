@@ -24,5 +24,5 @@ Selecting Full Test will run every single test in this order:
 	All Icons
 Selecting Partial Testing Window will generate another window and allow for specific assets to be tested.
 The character button will create another window allowing the user to choose between clothing test and hairstyle test
-The places button will create new window that will have a list of all places that can be tested, selecting one and press run test will run that place test.
+The places button will create new window that will have a list of all places that can be tested, selecting one and pressing run test will run that place test.
 All other assets run the asset they are assigned.
