@@ -26,3 +26,7 @@ Selecting Partial Testing Window will generate another window and allow for spec
 The character button will create another window allowing the user to choose between clothing test and hairstyle test
 The places button will create new window that will have a list of all places that can be tested, selecting one and pressing run test will run that place test.
 All other assets run the asset they are assigned.
+
+# Note #
+Due to the limiation of how Icons work, the icons test sets up an enviroment where the user has to walk up to a merchant and right clicking on the merchant will generate the 
+icons subdivided into 10 icons per click.
